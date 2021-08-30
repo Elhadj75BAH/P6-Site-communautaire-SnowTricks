@@ -34,10 +34,7 @@ class Figure
      */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="auteurFigure")
-     */
-    private $utilisateur;
+
 
     /**
      * @ORM\OneToOne(targetEntity=GroupeFigure::class, inversedBy="figure", cascade={"persist", "remove"})
@@ -54,6 +51,11 @@ class Figure
      * @ORM\OneToMany(targetEntity=VideoFigure::class, mappedBy="figure")
      */
     private $videofig;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateurs::class, inversedBy="auteurFigure")
+     */
+    private $utilisateurs;
 
     public function __construct()
     {
@@ -102,17 +104,6 @@ class Figure
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?Utilisateur $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
 
     public function getGroupe(): ?GroupeFigure
     {
@@ -182,6 +173,18 @@ class Figure
                 $videofig->setFigure(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateurs(): ?Utilisateurs
+    {
+        return $this->utilisateurs;
+    }
+
+    public function setUtilisateurs(?Utilisateurs $utilisateurs): self
+    {
+        $this->utilisateurs = $utilisateurs;
 
         return $this;
     }

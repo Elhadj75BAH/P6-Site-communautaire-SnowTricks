@@ -28,10 +28,12 @@ class Commentaires
     private $dateDuCommentaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="auteurCommentaire")
+     * @ORM\ManyToOne(targetEntity=Utilisateurs::class, inversedBy="auteurCommentaire")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $utilisateur;
+    private $utilisateurs;
+
+
 
     public function getId(): ?int
     {
@@ -68,15 +70,16 @@ class Commentaires
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateurs(): ?Utilisateurs
     {
-        return $this->utilisateur;
+        return $this->utilisateurs;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setUtilisateurs(?Utilisateurs $utilisateurs): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->utilisateurs = $utilisateurs;
 
         return $this;
     }
+
 }
