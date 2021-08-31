@@ -4,9 +4,17 @@
 
 {% block body %}
 <body class="body_home">
+{% for flashError in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+{% endfor %}
+
+{% for success in app.Flashes('success')%}
+    <div class="alert alert-success" role="alert">{{ success }}</div>
+{% endfor %}
 <div class="example-wrapper">
     {% include'carousel/carousel.html.twig' %}
 
 </div>
+{% include'scroll/scroll.html.twig' %}
 </body>
 {% endblock %}
