@@ -1,0 +1,21 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+    {# {% include'figure/modal.form.html.twig' %} #}
+    {% if avatar is null %}
+        Vous avez déjà un avatar
+    {% else %}
+        <div class="modal-body my-5">
+            {{ form_start(avatar) }}
+
+            <div class="container">
+                <div class="row">
+                    {{ form_row(avatar.picture) }}
+                </div>
+                <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+            </div>
+            <hr>
+        </div>
+        {{ form_end(avatar) }}
+    {% endif %}
+{% endblock %}

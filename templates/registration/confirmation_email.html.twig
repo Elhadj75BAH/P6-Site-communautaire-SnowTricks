@@ -1,9 +1,9 @@
-<h1>Salut! Veuillez confirmer votre email!</h1>
+<h1 class="text-center">Création de votre compte !</h1>
 
 <p>
     Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant: <br><br>
-    <a href="{{ signedUrl }}">Cliquez ici pour confirmer votre email</a>.
-     Attention ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    <a href="{{ url('confirm_account', {"token": token}) }}">Cliquer ici pour activer votre compte</a>
+    <hr>
 </p>
 
 <p>

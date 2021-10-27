@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit GroupeFigure{% endblock %}
+
+{% block body %}
+    <h1>Edit GroupeFigure</h1>
+
+    {{ include('groupe_figure/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('groupe_figure_index') }}">back to list</a>
+
+    {{ include('groupe_figure/_delete_form.html.twig') }}
+{% endblock %}

@@ -60,4 +60,11 @@ class GroupeFigure
 
         return $this;
     }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        $nomgroupe = $this->getNomGroupe();
+        return($nomgroupe);
+    }
 }

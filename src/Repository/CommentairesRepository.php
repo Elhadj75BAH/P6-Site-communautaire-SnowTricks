@@ -19,6 +19,20 @@ class CommentairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaires::class);
     }
 
+    public function paginationCommentaire($page)
+    {
+
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.dateDuCommentaire', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult(($page-1)*10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
     // /**
     //  * @return Commentaires[] Returns an array of Commentaires objects
     //  */
@@ -34,8 +48,8 @@ class CommentairesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
+*/
     /*
     public function findOneBySomeField($value): ?Commentaires
     {

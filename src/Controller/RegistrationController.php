@@ -6,10 +6,14 @@ use App\Entity\Utilisateurs;
 use App\Form\RegistrationFormType;
 use App\Repository\UtilisateursRepository;
 use App\Security\EmailVerifier;
+use App\Services\Mailer;
+use phpDocumentor\Reflection\Types\Context;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -24,10 +28,19 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 */
+    public function __construct(Mailer $mailer, ParameterBagInterface $parameterBag, UtilisateursRepository $utilisateursRepository)
+    {
+        //$this-> = $emailVerifier;
+        $this->mailer=$mailer;
+        $this->param =$parameterBag;
+        $this->utilisateursRepository = $utilisateursRepository;
+    }
+
     /**
      * @Route("/register", name="app_register")
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder ,MailerInterface $mailer): Response
     {
         $user = new Utilisateurs();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -41,21 +54,16 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            //
+            $user->setToken($this->generateToken());
+            //
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->mailer->sendEmail($user->getEmail(),$user->getToken());
 
-            // generate a signed url and email it to the user
-          /*  $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('ismailabah16@gmail.com', 'Elhadj Verification'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
-        */
+           $this->addFlash('success','Félicitation Votre compte à été crée avec succès!  un email vient de vous être envoyé   ');
+
             return $this->redirectToRoute('home');
         }
 
@@ -63,6 +71,30 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+//Confirmer l'adresse email
+    /**
+     * @Route("/confirmer-mon-compte/{token}", name="confirm_account")
+     * @param string $token
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function confirmAccount(string $token)
+    {
+        $user = $this->utilisateursRepository->findOneBy(["token" => $token]);
+        if($user) {
+            $user->setToken(null);
+            $user->setIsVerified(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("success", "Votre Compte a été activé avec succès !");
+            return $this->redirectToRoute("home");
+        } else {
+            $this->addFlash("error", "OUPS UNE ERREUR S'EST PRODUITE, NOUS VOUS PRIONS DE NOUS EXCUSER.  !");
+            return $this->redirectToRoute('home');
+        }
+    }
+
 
     /**
      * @Route("/verify/email", name="app_verify_email")
@@ -94,5 +126,14 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Votre adresse e-mail a été vérifiée avec succès');
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }

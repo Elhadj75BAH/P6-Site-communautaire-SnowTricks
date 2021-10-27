@@ -3,6 +3,119 @@
     background: #eee;
 }
 
-a.nav-link {
+/*a.nav-link {
     border-right: 1px solid #5eb5e0;
+}*/
+
+span.d-left {
+    display: flex;
+    justify-content: flex-end;
 }
+
+a.btn.btn-outline-dark.margin {
+    margin-right: 4px;
+}
+
+span.navbar-toggler-icon {
+    background: #d90d0d;
+}
+
+.avatar {
+    /*vertical-align: middle;*/
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.name_avatar{
+    font-weight: bold;
+    font-size: large;
+}
+
+.banniere_img{
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+}
+
+.title_snowboard{
+    font-size:xxx-large;
+}
+
+.paragraphe-snowboard{
+    font-size: x-large;
+}
+span.text_avatar{
+    margin-left: 19px;
+}
+
+.font-title-form-comment
+{
+    font-size: x-large;
+}
+.bg-danger-home-degrade{
+    background: #c31432;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-navbar{
+    background:  #000046;
+}
+
+.bg-comment-degrade{
+    background: #659999;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f4791f, #659999);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f4791f, #659999); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+/* BUTTON SCROLL FIGURE */
+.scroll-down {
+    height: 50px;
+    width: 30px;
+    border: 2px solid black;
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    border-radius: 50px;
+    background: #a11313;
+    cursor: pointer;
+}
+.scroll-down::before,
+.scroll-down::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 10px;
+    width: 10px;
+    transform: translate(-50%, -100%) rotate(45deg);
+    border: 2px solid black;
+    border-top: transparent;
+    border-left: transparent;
+    animation: scroll-down 1s ease-in-out infinite;
+}
+.scroll-down::before {
+    top: 30%;
+    animation-delay: 0.3s;
+    /* animation: scroll-down 1s ease-in-out infinite; */
+}
+
+@keyframes scroll-down {
+    0% {
+         /*top:20%;*/
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        top: 90%;
+        opacity: 0;
+    }
+}
+/*FIN BUTTON SCROLL FIGURE */

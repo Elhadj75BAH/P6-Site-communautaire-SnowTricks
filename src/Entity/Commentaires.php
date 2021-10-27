@@ -33,6 +33,11 @@ class Commentaires
      */
     private $utilisateurs;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="commentaire")
+     */
+    private $figure;
+
 
 
     public function getId(): ?int
@@ -81,5 +86,18 @@ class Commentaires
 
         return $this;
     }
+
+    public function getFigure(): ?Figure
+    {
+        return $this->figure;
+    }
+
+    public function setFigure(?Figure $figure): self
+    {
+        $this->figure = $figure;
+
+        return $this;
+    }
+
 
 }

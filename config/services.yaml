@@ -4,6 +4,13 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    #ligne ci-dessous defini paramettre d'envoi mail
+    mailer_from: '%env(resolve:MAILER_FROM_ADRESS)%'
+
+    # ligne en dessous fait reference à  l'upload des fichier formulaire en pdf
+    upload_directory: '%kernel.project_dir%/public/images'
+    #images/avatar
+    upload_directory_avatar: '%kernel.project_dir%/public/images/avatar'
 
 services:
     # default configuration for services in *this* file

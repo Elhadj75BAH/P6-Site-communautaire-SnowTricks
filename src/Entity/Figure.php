@@ -6,9 +6,12 @@ use App\Repository\FigureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FigureRepository::class)
+ * @UniqueEntity(fields={"nom"}, message="Il existe déjà ce nom. veillez saisir un autre ")
  */
 class Figure
 {
@@ -20,7 +23,8 @@ class Figure
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,  unique=true)
+     * @Assert\NotBlank(message="Ce champ ne peut être vide")
      */
     private $nom;
 
@@ -31,24 +35,26 @@ class Figure
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champ ne peut être vide ")
      */
     private $description;
 
 
 
     /**
-     * @ORM\OneToOne(targetEntity=GroupeFigure::class, inversedBy="figure", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=GroupeFigure::class, inversedBy="figure")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="ce champ ne peut être vide ")
      */
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImageFigure::class, mappedBy="figureimage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ImageFigure::class, mappedBy="figureimage", orphanRemoval=true ,cascade={"remove"})
      */
     private $imagefig;
 
     /**
-     * @ORM\OneToMany(targetEntity=VideoFigure::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=VideoFigure::class, mappedBy="figure",cascade={"remove"})
      */
     private $videofig;
 
@@ -57,10 +63,17 @@ class Figure
      */
     private $utilisateurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="figure",cascade={"remove"})
+     * @ORM\OrderBy({"dateDuCommentaire"="DESC"})
+     */
+    private $commentaire;
+
     public function __construct()
     {
         $this->imagefig = new ArrayCollection();
         $this->videofig = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,7 +186,6 @@ class Figure
                 $videofig->setFigure(null);
             }
         }
-
         return $this;
     }
 
@@ -188,4 +200,72 @@ class Figure
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $nomfigure = $this->getNom();
+        return($nomfigure);
+
+    }
+    
+    //SLUG
+    public static function slugify($nom, string $divider = '-')
+    {
+        // replace non letter or digits by divider
+        $nom = preg_replace('~[^\pL\d]+~u', $divider, $nom);
+
+        // transliterate
+        $nom = iconv('utf-8', 'us-ascii//TRANSLIT', $nom);
+
+        // remove unwanted characters
+        $nom = preg_replace('~[^-\w]+~', '', $nom);
+
+        // trim
+        $nom = trim($nom, $divider);
+
+        // remove duplicate divider
+        $nom = preg_replace('~-+~', $divider, $nom);
+
+        // lowercase
+        $nom = strtolower($nom);
+
+        if (empty($nom)) {
+            return 'n-a';
+        }
+
+        return $nom;
+    }
+    // SLUG
+
+    /**
+     * @return Collection|Commentaires[]
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire[] = $commentaire;
+            $commentaire->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaire->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getFigure() === $this) {
+                $commentaire->setFigure(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
