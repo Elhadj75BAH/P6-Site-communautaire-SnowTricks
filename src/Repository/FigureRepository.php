@@ -31,8 +31,8 @@ class FigureRepository extends ServiceEntityRepository
             //->andWhere('f.exampleField = :val')
             //->setParameter('val', $value)
             ->orderBy('f.id', 'DESC')
-            ->setMaxResults(4)
-            ->setFirstResult(($page-1)*4)
+            ->setMaxResults(10)
+            ->setFirstResult(($page-1)*10)
             ->getQuery()
             ->getResult()
         ;

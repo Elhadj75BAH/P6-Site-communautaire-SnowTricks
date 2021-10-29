@@ -22,7 +22,6 @@
 
             {# debut #}
             <div class="container bg bg-white pb-4 my-4">
-
                 {# Debut button scroll #}
                 <section id="sec-1">
                     <div class="container">
@@ -37,13 +36,12 @@
                     <h2 class=" text-center   mb-3 ">Liste des figures</h2>
                 {% endif %}
                 {% if app.user %}
-                    {# {% include'figure/modal.form.html.twig' %} #}
                     <a href="{{ path('formulaire_') }}" class="btn btn-outline-dark"> Ajouter une figure</a>
                 {% endif %}
 
                 <hr>
 
-                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+                <div class="row row-cols-1 row-cols-md-5 g-4 justify-content-center">
                     {% for figure in figure %}
                         <div class="col">
                             {% if app.user %}
@@ -69,6 +67,7 @@
                 </div>
             </div>
             {# ici #}
+
             {# button #}
             <div class="text-center" id="figures">
                 {% if page >=2 %}

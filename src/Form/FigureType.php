@@ -23,14 +23,17 @@ class FigureType extends AbstractType
             ->add('groupe');
 
         $builder->add('imagefig',CollectionType::class,[
+            'label'=>'Image',
             'entry_type'=> ImageFigureType::class,
             'entry_options'=>['label'=>false],
             'allow_add' => true,
         ]);
         $builder->add('videofig',CollectionType::class,[
+            'label'=>'Video',
             'entry_type'=>VideoFigureType::class,
-            'entry_options'=>['label'=>'Votre video'],
+            'entry_options'=>['label'=>false],
             'allow_add' => true,
+
 
         ]);
 
@@ -40,8 +43,6 @@ class FigureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Figure::class,
-            /*'data_class'=> ImageFigure::class,
-            'data_classe'=> VideoFigure::class*/
         ]);
     }
 }

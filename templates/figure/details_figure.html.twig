@@ -10,7 +10,7 @@
             <div class="alert alert-success" role="alert">{{ success }}</div>
         {% endfor %}
         <div class="container body_home ">
-            <h1 class="text-center"> Details Figure</h1>
+            <h1 class="text-center">Details : ''{{ figures.nom }}''</h1>
             <a href="{{ path('home') }}" class="btn btn-outline-dark"><i class="fa fa-arrow"></i> Retour à la liste</a>
             <hr>
             {# carrousel #}
@@ -30,6 +30,7 @@
             </div>
             {# fin carousel #}
             <hr>
+
             <h2 class="text-center">Image associée à cette figure </h2>
             <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
                 {% for image in figures.imagefig %}
@@ -38,18 +39,23 @@
             </div>
             {# video #}
             <hr>
-            {% for video in figures.videofig %}
-                {% if video is defined %}
-                    <h2 class="text-center">Video associèe</h2>
-                {% endif %}
-                <div class="table table-responsive ">
-                    <video width="320" height="240" controls>
-                        <source src="{{ absolute_url(asset('images/' ~  video.video)) }}" type="video/mp4">
-                    </video>
-                </div>
-            {% endfor %}
-            {# fin video #}
+
+            <h2 class="text-center">Video associée</h2>
+
+                   <div class=" row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+                       {% for video in figures.videofig %}
+                           {% if figures.videofig is not null %}
+                           <iframe width="560" height="315"
+                                   src="{{ video.video }}"
+                                   title="YouTube video player" frameborder="0"
+                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                           </iframe>
+                           {% endif %}
+                       {% endfor %}
+                   </div>
+               {# fin video #}
             <hr>
+
             {# description #}
             <div class="card">
                 <div class="card-body">
@@ -75,7 +81,7 @@
                     <summary class="pt-2 font-title-form-comment ">Laisser vos commentaires <i
                                 class="fa fa-comments text-danger"></i></summary>
                     <p class="pt-3">
-                        Commenter une figure neccessite de
+                        Commenter une figure nécessite de
                         <a class="text-info btn " href="{{ path('app_login') }}"> Se Connecter</a>
                     </p>
                 </details>
@@ -101,22 +107,6 @@
                     </div>
                     <hr>
                 {% endfor %}
-
-               {# {% for comment in figures.commentaire %}
-                    <div class="card-body bg bg-comment-degrade text-light">
-                        <p class="text-center">" {{ comment.contenu }} "</p>
-                        <hr>
-                        <span class="text-black">Commenté par :</span><br>
-                        <img src="{{ absolute_url(asset('images/avatar/' ~ comment.utilisateurs.picture)) }}" alt="image"
-                             class="avatar">
-                        <span class="name_avatar"> {{ comment.utilisateurs|capitalize }}</span>
-                        <p class="mt-2 text-black"><i class="fa fa-calendar"></i>
-                            Le {{ comment.dateDuCommentaire|date('d-m-Y') }} à {{ comment.dateDuCommentaire|date('H:i:s') }}
-                        </p>
-                        #{{ figures.nom }}
-                    </div>
-                    <hr>
-                {% endfor %}#}
             </div>
         </div>
     </body>

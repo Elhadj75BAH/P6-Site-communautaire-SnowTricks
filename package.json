@@ -1,0 +1,25 @@
+{
+  "name": "p6-snowtriks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elhadj75BAH/P6-Site-communautaire-SnowTricks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elhadj75BAH/P6-Site-communautaire-SnowTricks/issues"
+  },
+  "homepage": "https://github.com/Elhadj75BAH/P6-Site-communautaire-SnowTricks#readme",
+  "dependencies": {
+    "@a2lix/symfony-collection": "^0.4.0"
+  }
+}

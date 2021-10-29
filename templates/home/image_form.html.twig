@@ -23,6 +23,9 @@
             <div class="row">
                 {{ form_row(form.imagefig) }}
             </div>
+            <div class="row">
+                {{ form_row(form.videofig) }}
+            </div>
             {{ form_errors(form) }}
         </div>
              <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
@@ -42,7 +45,7 @@
 
 
 
-
+<script src="{{ asset('js/a2lix_sf_collection.js') }}"> </script>
 
     <script>
         // A global initialization on all Symfony Form collection with manageRemoveEntry feature enable

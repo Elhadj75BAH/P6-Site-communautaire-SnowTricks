@@ -15,12 +15,10 @@ class ImageFigureType extends AbstractType
         $builder
             ->add('image',FileType::Class,
                 [
-                'label'=>'Image figure',
+                'label'=>false,
                 'attr'=>['class'=>'form-control']
             ])
-
-            ->add('figureimage'
-       );
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
