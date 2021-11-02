@@ -11,6 +11,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VideoFigureType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => VideoFigure::class,
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -20,10 +27,4 @@ class VideoFigureType extends AbstractType
                 ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => VideoFigure::class,
-        ]);
-    }
 }

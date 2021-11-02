@@ -9,18 +9,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GroupeFigureType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('nomGroupe')
-           // ->add('figure')
-        ;
-    }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => GroupeFigure::class,
         ]);
     }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('nomGroupe')
+        ;
+    }
+
 }
