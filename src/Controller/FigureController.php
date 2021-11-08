@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Commentaires;
 use App\Entity\Figure;
+use App\Entity\ImageFigure;
 use App\Form\CommentairesType;
 use App\Form\FigureType;
+use App\Form\ImageFigureEditType;
+use App\Form\ImageFigureType;
+use App\Manager\FigureManager;
 use App\Repository\CommentairesRepository;
 use App\Repository\FigureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,41 +32,6 @@ class FigureController extends AbstractController
         $this->slugger = $slugger;
     }
 
-
-    /**
-     * @Route("/", name="figure_index", methods={"GET"})
-     */
-    public function index(FigureRepository $figureRepository): Response
-    {
-        return $this->render('figure/index.html.twig', [
-            'figures' => $figureRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="figure_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $figure = new Figure();
-        $form = $this->createForm(FigureType::class, $figure);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
-            $figure->setUtilisateurs($this->getUser());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($figure);
-            $entityManager->flush();
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('groupe_figure/new.html.twig', [
-            'form' => $form,
-        ]);
-    }
-
     // Affichage page slug //
 
     /**
@@ -74,7 +43,9 @@ class FigureController extends AbstractController
         if (!$detailsfigure) {
             throw new NotFoundHttpException('Cette figure n\'est pas disponible');
         }
-        //Commentaires
+
+        //COMMENTAIRES
+
         $commentaire = new Commentaires();
         $form = $this->createForm(CommentairesType::class, $commentaire);
         $form->handleRequest($request);
@@ -93,33 +64,64 @@ class FigureController extends AbstractController
         return $this->render('figure/details_figure.html.twig', [
             'slug' => $slug,
             'figures' => $detailsfigure,
-           // 'commentaires' => $commentaire,
-            //    'comment'=>$commentairesRepository->paginationCommentaire($page),
             'form' => $form->createView(),
         ]);
     }
-    // ICI FIN AFFICHAGE FIN SLUG //
+
 
     /**
      * @Route("/{slug}/edit", name="figure_edit", methods={"GET","POST"})
      */
-    public function edit($slug, Request $request, Figure $figure, FigureRepository $figureRepository): Response
+    public function edit($slug, Request $request, Figure $figure): Response
     {
-        $formFigure = $this->createForm(FigureType::class, $figure);
-        $formFigure->handleRequest($request);
 
-        if ($formFigure->isSubmitted() && $formFigure->isValid()) {
+        $form = $this->createForm(FigureType::class, $figure);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
             // ligne ci-dessous permet de modifier le slug de la figure
             $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
-            $this->getDoctrine()->getManager()->flush();
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            // On boucle sur les images
+            foreach ($figure->getImagefig() as $image){
+
+                $file = $image->getImageFile(); // IMPORTANT
+
+                // On génère un nouveau nom de fichier
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                // On copie le fichier dans le dossier images
+                $file->move(
+                    $this->getParameter('upload_directory'),
+                    $filename
+                );
+                // On crée l'image dans la base de données
+                $image->setImage($filename);
+                $image->setFigureimage($figure);
+                $entityManager->persist($image);
+            }
+            //
+            //VIDEO
+            foreach ($figure->getVideofig()as $videoFigure){
+
+                $video =$videoFigure->getVideo();
+                $videoFigure->setVideo($video);
+                $videoFigure->setFigure($figure);
+                $entityManager->persist($videoFigure);
+            }
+            $entityManager->persist($figure);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Figure mis à jour avec succès ');
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->renderForm('figure/new.html.twig', [
+        return $this->renderForm('home/image_form.html.twig', [
             'figures' => $figure,
-            'form' => $formFigure,
+            'form' => $form,
             'slug' => $slug
         ]);
     }
@@ -132,11 +134,25 @@ class FigureController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->request->get('_token'))) {
 
+            // SCRIPT POUR SUPPRIMER LES IMAGES DANS LE DOSSIER IMAGES
+            $images = $figure->getImagefig();
+            if($images){
+                // on parcourt les images avec une boucle
+                foreach ($images as $image){
+                    $imageName = $this->getParameter("upload_directory") . '/'.$image->getImage();
+
+                    // on vérifie si l'image existe
+                    if(file_exists($imageName)){
+                        unlink($imageName);
+                      }
+                }
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($figure);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Figure supprimé avec succès ');
+            $this->addFlash('success', 'Figure supprimée avec succès  ');
         } else {
             $this->addFlash('danger', 'Erreur lors de la suppression');
         }
