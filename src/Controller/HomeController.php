@@ -7,7 +7,10 @@ use App\Entity\ImageFigure;
 use App\Entity\Utilisateurs;
 use App\Form\AvatarType;
 use App\Form\FigureType;
+use App\Form\ImageFigureType;
+use App\Manager\UtilisateurManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,23 +80,30 @@ class HomeController extends AbstractController
      */
     public function fomulaires(Request $request): Response
     {
-
         $figure = new Figure();
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $figure->setUtilisateurs($this->getUser());
             $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
 
-            // traitement champs document upload
             $entityManager = $this->getDoctrine()->getManager();
+
+            // On boucle sur les images
             foreach ($figure->getImagefig() as $image){
+                 $file = $image->getImageFile();
 
-                $file = $image->getImage();
+                // On génère un nouveau nom de fichier
                 $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move($this->getParameter('upload_directory'), $filename);
 
+                // On copie le fichier dans le dossier images
+                $file->move(
+                    $this->getParameter('upload_directory'),
+                    $filename
+                );
+                // On crée l'image dans la base de données
                 $image->setImage($filename);
                 $image->setFigureimage($figure);
                 $entityManager->persist($image);
@@ -114,6 +124,7 @@ class HomeController extends AbstractController
         }
         return $this->render('home/image_form.html.twig', [
             'form' => $form->createView(),
+            'figures' => $figure,
         ]);
     }
 
