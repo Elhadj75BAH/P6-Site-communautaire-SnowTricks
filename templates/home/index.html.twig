@@ -10,10 +10,10 @@
             {% endfor %}
 
             {% for success in app.Flashes('success') %}
-                <div class="alert alert-success" role="alert">{{ success }}</div>
+                <div class="alert alert-success" role="alert"><i class="fas fa-info-circle fa-2x"></i> {{ success }}</div>
             {% endfor %}
             {% for danger in app.Flashes('danger') %}
-                <div class="alert alert-danger" role="alert">{{ danger }}</div>
+                <div class="alert alert-danger" role="alert"><i class="fas fa-info-circle fa-2x"></i> {{ danger }}</div>
             {% endfor %}
             <div class="example-wrapper">
                 {% include'carousel/carousel.html.twig' %}
@@ -54,11 +54,12 @@
                             {% endif %}
                             <div class="card ">
                                 <img src="{{ absolute_url(asset('images/' ~ figure.imagefig[0].image)) }}" alt="image"
-                                     class="card-img-top" style="height: 200px">
+                                     class="card-img-top ">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title"> {{ figure.nom }}</h5>
+                                    <hr>
+                                    <small class="card-title "> {{ figure.nom }}</small><br>
                                     <a href="{{ path('figure_details',{'slug': figure.slug }) }}"
-                                       class="btn btn-outline-danger"><i class="fa fa-eye"></i> Consulter</a>
+                                       class="btn btn-outline-danger mt-2"><i class="fa fa-eye"></i> Consulter</a>
                                 </div>
                             </div>
 
