@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageFigureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ImageFigureRepository::class)
@@ -21,6 +22,11 @@ class ImageFigure
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
+    /**
+     * @var UploadedFile
+     */
+    private $imageFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="imagefig")
@@ -56,4 +62,22 @@ class ImageFigure
 
         return $this;
     }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getImageFile(): ?UploadedFile
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param UploadedFile $imageFile
+     */
+    public function setImageFile(?UploadedFile $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+
 }
