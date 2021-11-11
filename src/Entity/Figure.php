@@ -35,7 +35,12 @@ class Figure
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Ce champ ne peut être vide ")
+     * @Assert\Length(
+     *     min=10,
+     *     max=300,
+     *     minMessage="Vous devez saisir un text un peu long",
+     *     maxMessage="Votre text est beaucoup trop long"
+     * )
      */
     private $description;
 
