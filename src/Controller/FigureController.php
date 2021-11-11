@@ -74,7 +74,7 @@ class FigureController extends AbstractController
      */
     public function edit($slug, Request $request, Figure $figure): Response
     {
-
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
 
@@ -132,6 +132,7 @@ class FigureController extends AbstractController
      */
     public function delete(Figure $figure, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->request->get('_token'))) {
 
             // SCRIPT POUR SUPPRIMER LES IMAGES DANS LE DOSSIER IMAGES
