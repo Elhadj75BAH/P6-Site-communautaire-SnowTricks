@@ -22,6 +22,8 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AuthentificationAuthenticator
+            pattern: ^/
+            user_checker: App\Security\UserChecker
             # se souvenir de moi
             remember_me:
                 secret: '%env(APP_SECRET)%'
