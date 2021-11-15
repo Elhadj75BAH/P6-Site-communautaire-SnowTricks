@@ -2,15 +2,31 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta description="Site Communautaire 'snowTriks'">
+        <title>{% block title %}SnowTriks!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+            <link rel="icon" type="image/png"  href="{{ asset('logo/logo2.png') }}" >
+
+            {# viewport Responsive #}
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            {# font-awesome #}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
         {% endblock %}
+
+        {% include'navbar/navbar.html.twig' %}
 
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
+            <script src ="{{asset('js/javascript.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
     <body>

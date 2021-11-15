@@ -1,0 +1,22 @@
+
+{{ form_start(form) }}
+
+<div class="container" >
+    <div class="row">
+            {{ form_row(form.nom) }}
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.groupe) }}
+        </div>
+    </div>
+    <div class="row">
+            {{ form_row(form.description) }}
+    </div>
+    {{ form_errors(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}
+
+
+

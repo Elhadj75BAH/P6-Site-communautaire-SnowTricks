@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <body class="bg bg-danger-home-degrade">
+        <div class="body_home container">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+
+            {% for success in app.Flashes('success') %}
+                <div class="alert alert-success" role="alert">{{ success }}</div>
+            {% endfor %}
+            {% for danger in app.Flashes('danger') %}
+                <div class="alert alert-danger" role="alert">{{ danger }}</div>
+            {% endfor %}
+            <div class="example-wrapper">
+                {% include'carousel/carousel.html.twig' %}
+            </div>
+
+
+            {# debut #}
+            <div class="container bg bg-white pb-4 my-4">
+                {# Debut button scroll #}
+                <section id="sec-1">
+                    <div class="container">
+                        <a href="#figures">
+                            <div class="scroll-down" title="Voir les figures"></div>
+                        </a>
+                    </div>
+                </section>
+                {# Fin Button scroll #}
+
+                {% if figure is defined %}
+                    <h2 class=" text-center   mb-3 ">Liste des figures</h2>
+                {% endif %}
+                {% if app.user %}
+                    <a href="{{ path('formulaire_') }}" class="btn btn-outline-dark"> Ajouter une figure</a>
+                {% endif %}
+
+                <hr>
+
+                <div class="row row-cols-1 row-cols-md-5 g-4 justify-content-center">
+                    {% for figure in figure %}
+                        <div class="col">
+                            {% if app.user %}
+                                <span class="d-left">
+                             <a href="{{ path('figure_edit', {'slug': figure.slug}) }}" class="btn btn-outline-dark margin"><i
+                                         class="fas fa-edit"></i></a>
+                            {{ include('figure/_delete_form.html.twig') }}
+                        </span>
+                                <hr>
+                            {% endif %}
+                            <div class="card ">
+                                <img src="{{ absolute_url(asset('images/' ~ figure.imagefig[0].image)) }}" alt="image"
+                                     class="card-img-top" style="height: 200px">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title"> {{ figure.nom }}</h5>
+                                    <a href="{{ path('figure_details',{'slug': figure.slug }) }}"
+                                       class="btn btn-outline-danger"><i class="fa fa-eye"></i> Consulter</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {# ici #}
+
+            {# button #}
+            <div class="text-center" id="figures">
+                {% if page >=2 %}
+                    <a href="{{ path('home',{'page':page-1}) }}" class="btn btn-dark"><i
+                                class="fa fa-arrow-circle-left"></i> Page Précédente</a>
+                {% endif %}
+                <span class="btn btn-danger ">Page {{ page }}</span>
+                <a href="{{ path('home',{'page':page+1}) }}" class="btn btn-dark"><i class="fa fa-arrow-circle-right"></i>
+                    Page Suivante</a>
+            </div>
+            {# button #}
+        </div>
+    </body>
+{% endblock %}
