@@ -113,7 +113,7 @@ class RegistrationController extends AbstractController
             // On vérifie si l'utilisateur n'est pas connu on affiche ce message
             if ($user === null) {
                 $this->addFlash('danger', 'Votre adresse email semble incorrect veuillez réessayez ');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('reset_pass');
             }
             if ($user !== null) {
                 // on enregistre le token ResetTokenPass pour se servir après
