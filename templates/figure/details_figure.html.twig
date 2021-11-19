@@ -18,12 +18,12 @@
                 <div class="carousel-inner ">
                     <div class="carousel-item active ">
                         <img src="{{ absolute_url(asset('images/' ~ figures.imagefig[ 0 ].image)) }}" alt="image"
-                             class="d-block w-100 " style="height: 570px">
+                             class=" d-block w-100" style="height: 600px; width:100%">
                     </div>
                     {% for image in figures.imagefig %}
                         <div class="carousel-item ">
                             <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image"
-                                 class="d-block w-100 " style="height: 570px">
+                                 class=" d-block w-100 " style="height: 600px; width: 100%">
                         </div>
                     {% endfor %}
                 </div>
@@ -34,7 +34,7 @@
             <h2 class="text-center">Image associée à cette figure </h2>
             <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
                 {% for image in figures.imagefig %}
-                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-thumbnail ">
+                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-thumbnail object-fit-image">
                 {% endfor %}
             </div>
             {# video #}
@@ -90,14 +90,23 @@
             {# fin formulaire commentaire #}
 
             <div class="card ">
-                {% if  figures.commentaire|length ==0  %}
-                    <p class="text-center card-header">soyez le premier à commenter </p>
-                {% else %}
-                    <h2 class="text-center card-header ">Les commentaires </h2>
+                {% if app.user %}
+                    {% if  figures.commentaire|length ==0  %}
+                        <p class="text-center card-header">Soyez le premier à commenter cet article </p>
+                    {% else %}
+                        <h2 class="text-center card-header ">Les commentaires </h2>
+                    {% endif %}
                 {% endif %}
-                 {% for commentaires in figures.commentaire %}
+
+                {# -------------------------------------------------------------------- #}
+
+
+
+                {# -------------------------------------------------------------------- #}
+                <hr>
+                 {% for commentaires in commentaireFigure %}
                     <div class="card-body bg bg-comment-degrade text-light">
-                        <p class="text-center">" {{ commentaires.contenu }} "</p>
+                        <p class="text-center">" {{commentaires.contenu }} "</p>
                         <hr>
                         <span class="text-black">Commenté par :</span><br>
                         <img src="{{ absolute_url(asset('images/avatar/' ~ commentaires.utilisateurs.picture))}}" alt="image" class="avatar">
