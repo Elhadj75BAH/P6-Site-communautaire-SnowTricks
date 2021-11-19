@@ -36,7 +36,7 @@ class Figure
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(
-     *     min=10,
+     *     min=5,
      *     max=300,
      *     minMessage="Vous devez saisir un text un peu long",
      *     maxMessage="Votre text est beaucoup trop long"
