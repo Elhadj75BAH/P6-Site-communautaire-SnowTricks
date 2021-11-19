@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commentaires;
+use App\Entity\Figure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,13 +20,15 @@ class CommentairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaires::class);
     }
 
-    public function paginationCommentaire($page)
+    public function paginationCommentaire($page,$figure)
     {
 
         return $this->createQueryBuilder('c')
             ->orderBy('c.dateDuCommentaire', 'DESC')
-            ->setMaxResults(10)
-            ->setFirstResult(($page-1)*10)
+            ->setMaxResults(3)
+            ->where('c.figure=?1')
+            ->setParameter(1,$figure)
+            ->setFirstResult(($page-1)*2)
             ->getQuery()
             ->getResult()
             ;
