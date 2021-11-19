@@ -16,7 +16,7 @@ class UserChecker implements UserCheckerInterface
            return;
        }
 
-       if($user->isVerified()==0){
+       if(!$user->isVerified()){
            throw new CustomUserMessageAuthenticationException('Vous devez cliquer sur le lien reçu par email lors de votre inscription pour activer votre compte pour pouvoir se connecter');
        }
    }
