@@ -1,11 +1,22 @@
 .body_home
 {
-    background: #eee;
+   /* background: #eee;*/
+    background: #8f1e1e;
 }
+
 
 /*a.nav-link {
     border-right: 1px solid #5eb5e0;
 }*/
+
+.font-google{
+    font-family: 'Abril Fatface', cursive;
+    text-transform: capitalize;
+
+}
+.font-roboto{
+    font-family: 'Roboto Slab', serif;
+}
 
 span.d-left {
     display: flex;
@@ -18,6 +29,9 @@ a.btn.btn-outline-dark.margin {
 
 span.navbar-toggler-icon {
     background: #d90d0d;
+}
+.object-fit-image{
+    object-fit: cover;
 }
 
 .avatar {
@@ -40,6 +54,7 @@ span.navbar-toggler-icon {
 
 .title_snowboard{
     font-size:xxx-large;
+    font-weight: bold;
 }
 
 .paragraphe-snowboard{
@@ -54,9 +69,10 @@ span.text_avatar{
     font-size: x-large;
 }
 .bg-danger-home-degrade{
-    background: #c31432;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   /* background: #c31432;  /* fallback for old browsers */
+   /* background: -webkit-linear-gradient(to top, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+   /* background: linear-gradient(to top, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top, #240b36, #617c6c3d);
 }
 
 .bg-navbar{
@@ -64,9 +80,49 @@ span.text_avatar{
 }
 
 .bg-comment-degrade{
-    background: #659999;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f4791f, #659999);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f4791f, #659999); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   /* background: #659999;  /* fallback for old browsers */
+   /* background: -webkit-linear-gradient(to right, #f4791f, #659999);  /* Chrome 10-25, Safari 5.1-6 */
+    /*background: linear-gradient(to right, #f4791f, #659999); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #38b096, #659999);
+}
+
+/* CAROUSEL*/
+.width-image-carousel
+{
+    height: 600px;
+    width: 100%;
+}
+
+.top-position{
+    position: absolute;
+    top:35%;
+    margin-top: 50px;
+
+}
+.bg-position-sentence-carrousel{
+    background-color: rgba(33,33,55,0.75);
+}
+
+/*BUTTON TOP */
+.btn.btn-dark.button-top {
+    position: relative;
+    left: 97%;
+    bottom: 78px;
+}
+
+@media screen and (max-width: 736px ){
+    .btn.btn-dark.button-top{
+        position: relative;
+        left: 87%;
+        bottom: 78px;
+    }
+
+    .width-image-carousel
+    {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
 }
 
 
@@ -77,7 +133,8 @@ span.text_avatar{
     border: 2px solid black;
     position: absolute;
     left: 50%;
-    bottom: 20px;
+    /*bottom: 20px;*/
+    bottom: 40%;
     border-radius: 50px;
     background: #a11313;
     cursor: pointer;
