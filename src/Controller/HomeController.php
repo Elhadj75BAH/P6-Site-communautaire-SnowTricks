@@ -7,10 +7,7 @@ use App\Entity\ImageFigure;
 use App\Entity\Utilisateurs;
 use App\Form\AvatarType;
 use App\Form\FigureType;
-use App\Form\ImageFigureType;
-use App\Manager\UtilisateurManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,9 +28,11 @@ class HomeController extends AbstractController
      */
     public function index($page = 1): Response
     {
-
         $donneRepo = $this->getDoctrine()->getRepository(ImageFigure::class)->findAll();
         $figure = $this->getDoctrine()->getRepository(Figure::class)->paginationFigure($page);
+        // Nbre de figure
+        $nbrePage = ceil($this->getDoctrine()->getRepository(Figure::class)->nombreFigure()/10);
+
         $userRepo = $this->getDoctrine()->getRepository(Utilisateurs::class)->findAll();
 
         return $this->render('home/index.html.twig', [
@@ -41,6 +40,7 @@ class HomeController extends AbstractController
             'page' => $page,
             'figure' => $figure,
             'utilisateur' => $userRepo,
+            'nbrePage'=>$nbrePage
         ]);
     }
 
