@@ -4,13 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Commentaires;
 use App\Entity\Figure;
-use App\Entity\ImageFigure;
 use App\Form\CommentairesType;
 use App\Form\FigureType;
-use App\Form\ImageFigureEditType;
-use App\Form\ImageFigureType;
-use App\Manager\FigureManager;
-use App\Repository\CommentairesRepository;
 use App\Repository\FigureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,17 +30,22 @@ class FigureController extends AbstractController
     // Affichage page slug //
 
     /**
-     * @Route ("/{slug}",name="figure_details")
+     * @Route ("/{slug}/{page}",name="figure_details", requirements={"page":"\d+"},defaults={"page":1})
      */
-    public function figure_details($slug, FigureRepository $figureRepository, Request $request)
+    public function figure_details($slug, FigureRepository $figureRepository, Request $request,  $page=1 )
     {
-        $detailsfigure = $figureRepository->findOneBy(['slug' => $slug]);
+
+        $detailsfigure = $figureRepository->findOneBy(['slug' => $slug,]);
+        $commentaireFigure = $this->getDoctrine()->getRepository(Commentaires::class)->paginationCommentaire($page,$detailsfigure);
+
         if (!$detailsfigure) {
             throw new NotFoundHttpException('Cette figure n\'est pas disponible');
         }
 
-        //COMMENTAIRES
 
+        $nbreCommentaire = ceil($this->getDoctrine()->getRepository(Commentaires::class)->nbreCommentaire() / 3);
+
+        //COMMENTAIRES
         $commentaire = new Commentaires();
         $form = $this->createForm(CommentairesType::class, $commentaire);
         $form->handleRequest($request);
@@ -64,7 +64,9 @@ class FigureController extends AbstractController
         return $this->render('figure/details_figure.html.twig', [
             'slug' => $slug,
             'figures' => $detailsfigure,
+            'commentaireFigure'=>$commentaireFigure,
             'form' => $form->createView(),
+            'nbreCommentaire'=>$nbreCommentaire,
         ]);
     }
 
@@ -83,27 +85,28 @@ class FigureController extends AbstractController
 
             // ligne ci-dessous permet de modifier le slug de la figure
             $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
-
-
             $entityManager = $this->getDoctrine()->getManager();
+
             // On boucle sur les images
             foreach ($figure->getImagefig() as $image){
 
-                $file = $image->getImageFile(); // IMPORTANT
+                 $file = $image->getImageFile(); // IMPORTANT
+                if ($file) {
+                    // On génère un nouveau nom de fichier
+                    $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
-                // On génère un nouveau nom de fichier
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                // On copie le fichier dans le dossier images
-                $file->move(
-                    $this->getParameter('upload_directory'),
-                    $filename
-                );
-                // On crée l'image dans la base de données
-                $image->setImage($filename);
-                $image->setFigureimage($figure);
-                $entityManager->persist($image);
+                    // On copie le fichier dans le dossier images
+                    $file->move(
+                        $this->getParameter('upload_directory'),
+                        $filename
+                    );
+                    // On crée l'image dans la base de données
+                    $image->setImage($filename);
+                    $image->setFigureimage($figure);
+                    $entityManager->persist($image);
+                }
             }
-            //
+
             //VIDEO
             foreach ($figure->getVideofig()as $videoFigure){
 
@@ -112,6 +115,7 @@ class FigureController extends AbstractController
                 $videoFigure->setFigure($figure);
                 $entityManager->persist($videoFigure);
             }
+            //
             $entityManager->persist($figure);
             $entityManager->flush();
 

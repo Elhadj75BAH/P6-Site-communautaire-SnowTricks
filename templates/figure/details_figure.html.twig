@@ -9,38 +9,41 @@
         {% for success in app.Flashes('success') %}
             <div class="alert alert-success" role="alert">{{ success }}</div>
         {% endfor %}
-        <div class="container body_home ">
-            <h1 class="text-center">Details : ''{{ figures.nom }}''</h1>
-            <a href="{{ path('home') }}" class="btn btn-outline-dark"><i class="fa fa-arrow"></i> Retour à la liste</a>
+        <div class="container bg-comment-degrade ">
+            <h1 class="text-center text-light font-google ">{{ figures.nom }}</h1>
+            <a href="{{ path('home') }}" class="btn btn-dark"><i class="fa fa-arrow"></i> Retour à la liste</a>
             <hr>
             {# carrousel #}
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner ">
-                    <div class="carousel-item active ">
-                        <img src="{{ absolute_url(asset('images/' ~ figures.imagefig[ 0 ].image)) }}" alt="image"
-                             class=" d-block w-100" style="height: 600px; width:100%">
-                    </div>
                     {% for image in figures.imagefig %}
-                        <div class="carousel-item ">
+                        <div class="carousel-item {{ loop.index is same as(1) ? 'active' }}  ">
                             <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image"
-                                 class=" d-block w-100 " style="height: 600px; width: 100%">
+                                 class=" d-block w-100 width-image-carousel">
+                            {# ici #}
+
+                            {# fin #}
                         </div>
+
                     {% endfor %}
                 </div>
             </div>
             {# fin carousel #}
             <hr>
 
-            <h2 class="text-center">Image associée à cette figure </h2>
+            <h2 class="text-center font-google text-light">Image associée à cette figure </h2>
             <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
                 {% for image in figures.imagefig %}
-                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-thumbnail object-fit-image">
+                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-thumbnail object-fit-image bg-danger-home-degrade">
                 {% endfor %}
             </div>
             {# video #}
             <hr>
 
-            <h2 class="text-center">Video associée</h2>
+            {% if figures.videofig|length==0 %}
+            <h2 class="text-center font-google text-light">Aucune vidéo n'est disponible pour le moment !</h2>
+            {% else %}
+            <h2 class="text-center font-google text-light">Video associée</h2>
 
                    <div class=" row row-cols-1 row-cols-md-4 g-4 justify-content-center">
                        {% for video in figures.videofig %}
@@ -53,6 +56,7 @@
                            {% endif %}
                        {% endfor %}
                    </div>
+            {% endif %}
                {# fin video #}
             <hr>
 
@@ -91,19 +95,14 @@
 
             <div class="card ">
                 {% if app.user %}
-                    {% if  figures.commentaire|length ==0  %}
+                    {% if  figures.commentaire|length ==0 %}
                         <p class="text-center card-header">Soyez le premier à commenter cet article </p>
                     {% else %}
                         <h2 class="text-center card-header ">Les commentaires </h2>
                     {% endif %}
                 {% endif %}
 
-                {# -------------------------------------------------------------------- #}
 
-
-
-                {# -------------------------------------------------------------------- #}
-                <hr>
                  {% for commentaires in commentaireFigure %}
                     <div class="card-body bg bg-comment-degrade text-light">
                         <p class="text-center">" {{commentaires.contenu }} "</p>
@@ -114,9 +113,21 @@
                         <p class="mt-2 text-black"><i class="fa fa-calendar"></i> Le {{ commentaires.dateDuCommentaire|date('d-m-Y') }} à {{ commentaires.dateDuCommentaire|date('H:i:s') }}</p>
                         #{{ figures.nom }}
                     </div>
-                    <hr>
                 {% endfor %}
             </div>
+            {# pagination commentaire #}
+            <div class="bg-comment-degrade">
+                {% if nbreCommentaire>0%}
+                    {% for i in range(1, nbreCommentaire) %}
+                        {% if figures.commentaire|length  ==0%}
+                        {% else %}
+                            <a href="{{ path('figure_details',{slug:slug,page:i}) }}" class="btn btn-danger"> {{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {# fin pagination commentaire #}
         </div>
     </body>
 
