@@ -28,10 +28,22 @@ class CommentairesRepository extends ServiceEntityRepository
             ->setMaxResults(3)
             ->where('c.figure=?1')
             ->setParameter(1,$figure)
-            ->setFirstResult(($page-1)*2)
+            ->setFirstResult(($page-1)*3)
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function nbreCommentaire ()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 
