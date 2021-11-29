@@ -3,6 +3,10 @@ twig:
     form_themes:
         - bootstrap_5_layout.html.twig
 
+    # JUSTE UN PETIT TEST SUR LES VARIABLE GLOBALES
+    globals:
+        #figureRepository: "@App\\Repository\\FigureRepository"
+
 when@test:
     twig:
         strict_variables: true
