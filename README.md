@@ -30,3 +30,6 @@ En utilisation le framework symfony.
 
 - https://codeclimate.com/github/Elhadj75BAH/P6-Site-communautaire-SnowTricks
 
+# Images :
+
+![](/home/elhadj/Bureau/capture-site-du-projet/Page_Accueil.png)
