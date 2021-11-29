@@ -74,6 +74,11 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $token;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetTokenPass;
+
     public function __construct()
     {
         $this->auteurCommentaire = new ArrayCollection();
@@ -286,6 +291,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getResetTokenPass(): ?string
+    {
+        return $this->resetTokenPass;
+    }
+
+    public function setResetTokenPass(?string $resetTokenPass): self
+    {
+        $this->resetTokenPass = $resetTokenPass;
 
         return $this;
     }

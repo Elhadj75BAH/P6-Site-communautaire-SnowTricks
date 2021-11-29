@@ -3,6 +3,9 @@
 {% block title %}Authentification!{% endblock %}
 
 {% block body %}
+    {% for success in app.Flashes('success') %}
+        <div class="alert alert-success" role="alert"><i class="fas fa-info-circle fa-2x"></i> {{ success }}</div>
+    {% endfor %}
 
     <section class="vh-100" style="background-color: #eee;">
         <div class="container h-100">
@@ -13,7 +16,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Connexion</p>
+                                    <p class="text-center h1  mb-5 mx-1 mx-md-4 mt-4 font-google">Connexion</p>
                                     <form method="post" class="mx-1 mx-md-4">
                                         {% if error %}
                                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -54,7 +57,7 @@
                                             <button type="submit" class="btn btn-primary btn-lg">Se Connecter</button>
                                         </div>
                                         <small>Vous avez oublié votre mot de passe ? </small>
-                                       {#  <a href="{{ path('app_forgot_password_request') }}">cliquez ici</a>#}
+                                         <a href="{{ path('reset_pass') }}">cliquez ici</a>
                                     </form>
 
                                 </div>

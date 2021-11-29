@@ -1,51 +1,20 @@
 {% extends'base.html.twig' %}
 
+
+{% form_theme form 'home/form_image.html.twig' %}
 {% block body %}
-    <h1 class="text-center">Formulaire </h1>
-
-<div class="container">
-            {{ form_start(form) }}
-
-        <div class="container" >
-            <div class="row">
-                {{ form_row(form.nom) }}
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{ form_row(form.groupe) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{ form_row(form.description) }}
-                </div>
-            </div>
-            <div class="row">
-                {{ form_row(form.imagefig) }}
-            </div>
-            <div class="row">
-                {{ form_row(form.videofig) }}
-            </div>
-            {{ form_errors(form) }}
-        </div>
-             <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
-            {{ form_end(form) }}
-</div>
-
-
-
-   <hr>
-
-    {{ dump(form.children) }}
-
-      {#{{ form_start(form) }}
+    <body>
+    <h1 class="text-center  font-roboto fw-bold ">Formulaire </h1>
+    <div class="container bg-comment-degrade">
+        {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button class="btn">{{ button_label|default('Save') }}</button>
-        {{ form_end(form) }}#}
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+    </div>
 
 
 
-<script src="{{ asset('js/a2lix_sf_collection.js') }}"> </script>
+    <script src="{{ asset('js/a2lix_sf_collection.js') }}"></script>
 
     <script>
         // A global initialization on all Symfony Form collection with manageRemoveEntry feature enable
@@ -58,8 +27,7 @@
             manageRemoveEntry: false
         })
     </script>
-
-
+    </body>
 
 
 

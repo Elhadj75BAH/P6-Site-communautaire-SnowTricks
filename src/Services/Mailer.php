@@ -12,7 +12,7 @@ class Mailer
 {
     public function __construct(MailerInterface $mailer, ParameterBagInterface $parameterBag, UtilisateursRepository $utilisateursRepository)
     {
-        //$this-> = $emailVerifier;
+
         $this->mailer=$mailer;
         $this->param =$parameterBag;
         $this->utilisateursRepository = $utilisateursRepository;
@@ -30,6 +30,20 @@ class Mailer
         ]);
 
         $this->mailer->send($email);
+    }
+
+    public function sendEmailpasswoordForget($email,$token)
+    {
+        $email= (new TemplatedEmail())
+            ->from($this->param->get('mailer_from'))
+            ->to(new Address($email))
+            ->subject('Rénitialisation de votre mot de passe  ')
+            ->htmlTemplate('reset_password/email.html.twig')
+            ->context([
+                'token'=>$token
+            ]);
+            $this->mailer->send($email);
+       // $this->mailer->send($email);
     }
 
 }

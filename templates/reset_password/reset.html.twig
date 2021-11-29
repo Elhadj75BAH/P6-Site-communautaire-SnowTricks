@@ -4,15 +4,6 @@
 
 {% block body %}
 
-    {#   <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}#}
-
-
-
     <section class="vh-100" style="background-color: #eee;">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -24,18 +15,23 @@
 
                                     <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-4">Saisir mot de passe</p>
 
-                                    {{ form_start(resetForm) }}
-                                    <div class="mx-1 mx-md-4">
-                                        <div class="d-flex flex-row align-items-center mb-4">
-                                            <div class="form-outline flex-fill mb-0">
-                                                {{ form_row(resetForm.plainPassword) }}
+{#                                    {{ form_start(resetForm) }}#}
+                                    <form method="post">
+                                        <div class="mx-1 mx-md-4">
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <div class="form-outline flex-fill mb-0">
+{#                                                    {{ form_row(resetForm.plainPassword) }}#}
+                                                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" required>
+                                                    <input type="hidden" name="token" value="{{ token }}">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                                <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
-                                        </div>
-                                    </div>
-                                    {{ form_end(resetForm) }}
+{#                                        {{ form_end(resetForm) }}#}
+                                    </form>
+
 
                                 </div>
                                 {#  <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">

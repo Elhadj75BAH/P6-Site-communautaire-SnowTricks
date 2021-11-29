@@ -28,14 +28,27 @@ class FigureRepository extends ServiceEntityRepository
     {
 
         return $this->createQueryBuilder('f')
-            //->andWhere('f.exampleField = :val')
-            //->setParameter('val', $value)
             ->orderBy('f.id', 'DESC')
             ->setMaxResults(10)
             ->setFirstResult(($page-1)*10)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    // Methode count nbre figure
+
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function nombreFigure()
+    {
+        return $this->createQueryBuilder('f')
+            ->select('count(f.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 
 

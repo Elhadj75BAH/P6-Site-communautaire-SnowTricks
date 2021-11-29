@@ -2,24 +2,37 @@
 
 namespace App\Controller;
 
+
+use App\Repository\UtilisateursRepository;
+use App\Services\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    private $utilisateursRepository;
+    public function __construct(Mailer $mailer, ParameterBagInterface $parameterBag, UtilisateursRepository $utilisateursRepository)
+    {
+        //$this-> = $emailVerifier;
+        $this->mailer=$mailer;
+        $this->param =$parameterBag;
+        $this->utilisateursRepository = $utilisateursRepository;
+    }
+
+
+   // private $utilisateursRepository;
 
     /**
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        /* if ($this->getUser()->getToken('0')) {
+
+             return $this->redirectToRoute('home');
+         }*/
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
