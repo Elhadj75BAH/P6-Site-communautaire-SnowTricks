@@ -43,7 +43,7 @@ class FigureController extends AbstractController
         }
 
 
-        $nbreCommentaire = ceil($this->getDoctrine()->getRepository(Commentaires::class)->nbreCommentaire() / 3);
+        $nbreCommentaire = ceil($this->getDoctrine()->getRepository(Commentaires::class)->nbreCommentaire($detailsfigure) / 3);
 
         //COMMENTAIRES
         $commentaire = new Commentaires();
@@ -80,16 +80,13 @@ class FigureController extends AbstractController
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             // ligne ci-dessous permet de modifier le slug de la figure
             $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
             $entityManager = $this->getDoctrine()->getManager();
 
             // On boucle sur les images
             foreach ($figure->getImagefig() as $image){
-
                  $file = $image->getImageFile(); // IMPORTANT
                 if ($file) {
                     // On génère un nouveau nom de fichier
@@ -106,16 +103,13 @@ class FigureController extends AbstractController
                     $entityManager->persist($image);
                 }
             }
-
             //VIDEO
             foreach ($figure->getVideofig()as $videoFigure){
 
                 $video =$videoFigure->getVideo();
                 $videoFigure->setVideo($video);
-                $videoFigure->setFigure($figure);
                 $entityManager->persist($videoFigure);
             }
-            //
             $entityManager->persist($figure);
             $entityManager->flush();
 
