@@ -20,9 +20,6 @@
                         <div class="carousel-item {{ loop.index is same as(1) ? 'active' }}  ">
                             <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image"
                                  class=" d-block w-100 width-image-carousel">
-                            {# ici #}
-
-                            {# fin #}
                         </div>
 
                     {% endfor %}
@@ -34,7 +31,7 @@
             <h2 class="text-center font-google text-light">Image associée à cette figure </h2>
             <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
                 {% for image in figures.imagefig %}
-                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-thumbnail object-fit-image bg-danger-home-degrade">
+                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-fluid object-fit-image bg-danger-home-degrade">
                 {% endfor %}
             </div>
             {# video #}
@@ -103,17 +100,24 @@
                 {% endif %}
 
 
-                 {% for commentaires in commentaireFigure %}
-                    <div class="card-body bg bg-comment-degrade text-light">
-                        <p class="text-center">" {{commentaires.contenu }} "</p>
-                        <hr>
-                        <span class="text-black">Commenté par :</span><br>
-                        <img src="{{ absolute_url(asset('images/avatar/' ~ commentaires.utilisateurs.picture))}}" alt="image" class="avatar">
-                        <span class="name_avatar"> {{ commentaires.utilisateurs|capitalize }}</span>
-                        <p class="mt-2 text-black"><i class="fa fa-calendar"></i> Le {{ commentaires.dateDuCommentaire|date('d-m-Y') }} à {{ commentaires.dateDuCommentaire|date('H:i:s') }}</p>
-                        #{{ figures.nom }}
+{#                 {% for commentaires in commentaireFigure %}#}
+                    <div class="card ">
+                        <div class="row">
+                            {% for commentaires in commentaireFigure %}
+                                <div>
+                                    <span class="text-muted">Commenté par :</span><br>
+                                    <img src="{{ absolute_url(asset('images/avatar/' ~ commentaires.utilisateurs.picture))}}" alt="image" class="avatar">
+                                    <span class="name_avatar"> {{ commentaires.utilisateurs|capitalize }}</span>
+                                    <p class="ml-3 mr-3_">" {{commentaires.contenu }} "</p>
+                                </div>
+                                <div>
+
+                                    <p class="mt-2 text-muted"><i class="fa fa-calendar"></i> Le {{ commentaires.dateDuCommentaire|date('d-m-Y') }} à {{ commentaires.dateDuCommentaire|date('H:i:s') }}</p>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
                     </div>
-                {% endfor %}
             </div>
             {# pagination commentaire #}
             <div class="bg-comment-degrade">
@@ -121,7 +125,9 @@
                     {% for i in range(1, nbreCommentaire) %}
                         {% if figures.commentaire|length  ==0%}
                         {% else %}
-                            <a href="{{ path('figure_details',{slug:slug,page:i}) }}" class="btn btn-danger"> {{ i }}</a>
+                            <div class="position-pagination-commentaire">
+                                <a href="{{ path('figure_details',{slug:slug,page:i}) }}" class="btn btn-danger">Page {{ i }}</a>
+                            </div>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
