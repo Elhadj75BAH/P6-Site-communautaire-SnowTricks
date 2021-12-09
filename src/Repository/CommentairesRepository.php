@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Commentaires;
-use App\Entity\Figure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,12 +37,14 @@ class CommentairesRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\NoResultException
      */
-    public function nbreCommentaire ()
+    public function nbreCommentaire ($figure)
     {
         return $this->createQueryBuilder('c')
             ->select('count(c.id)')
+            ->where('c.figure=?1')
+            ->setParameter('1',$figure)
             ->getQuery()
-            ->getSingleScalarResult();
+           ->getSingleScalarResult();
     }
 
 
