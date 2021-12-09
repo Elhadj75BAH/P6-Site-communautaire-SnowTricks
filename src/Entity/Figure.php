@@ -37,7 +37,7 @@ class Figure
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min=5,
-     *     max=300,
+     *     max=2000,
      *     minMessage="Vous devez saisir un text un peu long",
      *     maxMessage="Votre text est beaucoup trop long"
      * )
@@ -59,7 +59,7 @@ class Figure
     private $imagefig;
 
     /**
-     * @ORM\OneToMany(targetEntity=VideoFigure::class, mappedBy="figure",cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=VideoFigure::class, mappedBy="figure", orphanRemoval=true ,cascade={"remove"})
      */
     private $videofig;
 
