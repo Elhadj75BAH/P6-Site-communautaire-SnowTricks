@@ -1,9 +1,9 @@
+/*
 .body_home
 {
    /* background: #eee;*/
-    background: #8f1e1e;
+   /* background: #8f1e1e;
 }
-
 
 /*a.nav-link {
     border-right: 1px solid #5eb5e0;
@@ -176,3 +176,33 @@ span.text_avatar{
     }
 }
 /*FIN BUTTON SCROLL FIGURE */
+
+/*FOOTER*/
+
+
+
+
+/* block pagination home pour les figure*/
+.position-pagination{
+    position: relative;
+    left: 50%;
+    bottom: 50px;
+}
+
+.position-pagination-commentaire{
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    bottom: 29px;
+}
+
+p.ml-3.mr-3_ {
+    padding: 12px;
+}
+
+/*
+div#figure_imagefig {
+    display: flex;
+    justify-items: baseline;
+}*/
+
