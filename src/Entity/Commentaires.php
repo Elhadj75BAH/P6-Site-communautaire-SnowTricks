@@ -22,7 +22,7 @@ class Commentaires
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min=5,
-     *     max=100,
+     *     max=1000,
      *     minMessage="Vous devez saisir un commentaire un peu long",
      *     maxMessage="Vous devez saisir un commentaire moyen long"
      * )
