@@ -24,10 +24,10 @@ class CommentairesRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('c')
             ->orderBy('c.dateDuCommentaire', 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults(10)
             ->where('c.figure=?1')
             ->setParameter(1,$figure)
-            ->setFirstResult(($page-1)*3)
+            ->setFirstResult(($page-1)*10)
             ->getQuery()
             ->getResult()
             ;
