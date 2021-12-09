@@ -1,37 +1,35 @@
 
 {% form_theme form _self %}
-<div class="bg-danger-home-degrade row row-cols-3 row-cols">
+
 
     {% block _figure_imagefig_entry_widget %}
         {% if form.vars.data is  null %}
             {{ form_widget(form) }}
         {% else %}
-
-            <div class="row row-cols-1 row-cols  bg bg-dark justify-content-center">
-                <div class="container bg-comment-degrade">
-                    <img src="{{ absolute_url(asset('images/' ~ form.vars.data.image )) }}" alt="image"
-                         class="img-thumbnail object-fit-image">
-                </div>
+            <div class="d-none">
+                {{ form_widget(form) }}
             </div>
-
+            <div class="row row-cols-1 row-cols  justify-content-center">
+                        <img src="{{ absolute_url(asset('images/' ~form.vars.data.image  )) }}" alt="image"
+                             class=" object-fit-image" >
+            </div>
         {% endif %}
     {% endblock %}
-
-</div>
 
 
      {% block _figure_videofig_entry_widget %}
          {% if form.vars.data is  null %}
              {{ form_widget(form) }}
          {% else %}
-
-             <div class="row row-cols-1 row-cols  justify-content-center">
-                 <iframe width="560" height="315"
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+             <div class="row row-cols-1 row-cols  justify-content-center ">
+                 <iframe width="660" height="327"
                          src="{{form.vars.data.video}}"
                          title="YouTube video player" frameborder="0"
                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                  </iframe>
-
              </div>
 
          {% endif %}
