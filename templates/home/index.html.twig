@@ -3,8 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <body class="bg bg-danger-home-degrade">
-        <div class="body_home containe" id="home">
+{#    <body class="bg bg-danger-home-degrade">#}
+        <div class="body_home" id="home">
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
             {% endfor %}
@@ -66,31 +66,23 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-            {# ici #}
 
-            {# button #}
-            <div class="text-center" id="figures">
-               {# {% if page >=2 %}
-                    <a href="{{ path('home',{'page':page-1}) }}" class="btn btn-dark"><i
-                                class="fa fa-arrow-circle-left"></i> Page Précédente</a>
+                {# pagination  #}
+                <hr>
+                {% if nbrePage >0 %}
+                    {% for i in range(1, nbrePage) %}
+                        <div class="d-inline-block text-center"  id="figures">
+                            <a href="{{ path('home',{'page':i}) }}" class="btn btn-dark"> Page {{ i}}  </a>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-                <span class="btn btn-danger ">Page {{ page }}</span>
-                <a href="{{ path('home',{'page':page+1}) }}" class="btn btn-dark"><i class="fa fa-arrow-circle-right"></i>
-                    Page Suivante</a>#}
+                {# pagination #}
             </div>
-            {# button #}
+
             <div class="position">
                 <a href="#home" class="btn btn-dark button-top"><i class="fa fa-angle-double-up"></i></a>
             </div>
-
-            {# pagination  #}
-            {% if nbrePage >0 %}
-                {% for i in range(1, nbrePage) %}
-                    <a href="{{ path('home',{'page':i}) }}" class="btn btn-dark"> {{ i}}  </a>
-                {% endfor %}
-            {% endif %}
-            {# pagination #}
+            {# button #}
         </div>
-    </body>
+{#    </body#}
 {% endblock %}
