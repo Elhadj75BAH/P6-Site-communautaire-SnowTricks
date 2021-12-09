@@ -5,10 +5,39 @@
 {% block body %}
     <body>
     <h1 class="text-center  font-roboto fw-bold ">Formulaire </h1>
-    <div class="container bg-comment-degrade">
+   {# <div class="container bg-comment-degrade">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <button class="btn btn-dark"><i class="fa fa-save"></i> {{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+    </div>#}
+
+    <div class="container" >
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.groupe) }}
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.imagefig) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.videofig) }}
+            </div>
+        </div>
+        {{ form_errors(form) }}
+        <button class="btn btn-outline-danger">{{ button_label|default('Enregistrer') }}</button>
         {{ form_end(form) }}
     </div>
 
@@ -22,10 +51,10 @@
 
 
         // OR a custom initialization with restricted scope of Symfony Form collection with manageRemoveEntry feature disable
-        a2lix_lib.sfCollection.init({
+      /*  a2lix_lib.sfCollection.init({
             collectionsSelector: 'form div[data-a2lix-collection]',
             manageRemoveEntry: false
-        })
+        })*/
     </script>
     </body>
 
