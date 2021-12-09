@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Commentaires;
-use App\Entity\Figure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,10 +24,10 @@ class CommentairesRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('c')
             ->orderBy('c.dateDuCommentaire', 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults(10)
             ->where('c.figure=?1')
             ->setParameter(1,$figure)
-            ->setFirstResult(($page-1)*3)
+            ->setFirstResult(($page-1)*10)
             ->getQuery()
             ->getResult()
             ;
@@ -38,12 +37,14 @@ class CommentairesRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\NoResultException
      */
-    public function nbreCommentaire ()
+    public function nbreCommentaire ($figure)
     {
         return $this->createQueryBuilder('c')
             ->select('count(c.id)')
+            ->where('c.figure=?1')
+            ->setParameter('1',$figure)
             ->getQuery()
-            ->getSingleScalarResult();
+           ->getSingleScalarResult();
     }
 
 

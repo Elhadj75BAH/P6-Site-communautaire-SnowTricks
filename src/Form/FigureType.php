@@ -8,7 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class FigureType extends AbstractType
 {
@@ -30,14 +32,18 @@ class FigureType extends AbstractType
         $builder->add('imagefig',CollectionType::class,[
             'label'=>'Image',
             'entry_type'=> ImageFigureType::class,
-            'entry_options'=>['label'=>false],
+            'entry_options'=>['label'=>false,'attr'=>['required'=>true]],
             'allow_add' => true,
+            'allow_delete'=>true,
+          //  'by_reference'=>false
         ]);
         $builder->add('videofig',CollectionType::class,[
             'label'=>'Video',
             'entry_type'=>VideoFigureType::class,
-            'entry_options'=>['label'=>false],
+            'entry_options'=>['label'=>false, 'attr'=>['required'=>false]],
             'allow_add' => true,
+            'allow_delete'=>true,
+            'by_reference'=>false
 
         ]);
 

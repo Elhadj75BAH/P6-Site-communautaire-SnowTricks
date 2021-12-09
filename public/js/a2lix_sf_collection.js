@@ -14,7 +14,7 @@ a2lix_lib.sfCollection = (() => {
       manageRemoveEntry = true,
       lang = {
         add: 'Ajouter',
-        remove: 'Supprimer'
+        remove: 'X'
       }
     } = config
 

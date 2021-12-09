@@ -21,7 +21,9 @@ class VideoFigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('video',TextType::class,['label'=>false,
+            ->add('video',TextType::class,[
+                'label'=>false,
+                'required'=>false,
                 'attr'=>[
                     'placeholder'=>'Url de votre video']
                 ]);

@@ -15,7 +15,6 @@ class ImageFigureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ImageFigure::class,
-            // 'data_class'=>null
         ]);
     }
 
@@ -25,13 +24,14 @@ class ImageFigureType extends AbstractType
             ->add('imageFile',FileType::class,
                 [
                 'label'=>false,
-                'attr'=>['class'=>'form-control'],
+                'required'=>false,
+               // 'attr'=>['class'=>'form-control'],
 
-                'constraints'=>[
+              /*  'constraints'=>[
                     new File([
                         'maxSize'=>'8M',
                     ])
-                ],
+                ],*/
 
             ])
             ;
