@@ -43,7 +43,7 @@ class FigureController extends AbstractController
         }
 
 
-        $nbreCommentaire = ceil($this->getDoctrine()->getRepository(Commentaires::class)->nbreCommentaire($detailsfigure) / 3);
+        $nbreCommentaire = ceil($this->getDoctrine()->getRepository(Commentaires::class)->nbreCommentaire($detailsfigure) / 10);
 
         //COMMENTAIRES
         $commentaire = new Commentaires();
