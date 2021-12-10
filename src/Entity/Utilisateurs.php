@@ -266,7 +266,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return($nom);
     }
     // Nom en Majuscule
-    public function  getUppercaseName(): string
+    public function getUppercaseName(): string
     {
         return strtoupper($this->getNom());
     }
@@ -276,7 +276,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->picture;
     }
 
-    public function setPicture($picture):self
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
 
@@ -306,8 +306,4 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
-
-
 }

@@ -32,11 +32,11 @@ class FigureController extends AbstractController
     /**
      * @Route ("/{slug}/{page}",name="figure_details", requirements={"page":"\d+"},defaults={"page":1})
      */
-    public function figure_details($slug, FigureRepository $figureRepository, Request $request,  $page=1 )
+    public function figureDetails($slug, FigureRepository $figureRepository, Request $request, $page = 1)
     {
 
         $detailsfigure = $figureRepository->findOneBy(['slug' => $slug,]);
-        $commentaireFigure = $this->getDoctrine()->getRepository(Commentaires::class)->paginationCommentaire($page,$detailsfigure);
+        $commentaireFigure = $this->getDoctrine()->getRepository(Commentaires::class)->paginationCommentaire($page, $detailsfigure);
 
         if (!$detailsfigure) {
             throw new NotFoundHttpException('Cette figure n\'est pas disponible');
@@ -64,9 +64,9 @@ class FigureController extends AbstractController
         return $this->render('figure/details_figure.html.twig', [
             'slug' => $slug,
             'figures' => $detailsfigure,
-            'commentaireFigure'=>$commentaireFigure,
+            'commentaireFigure' => $commentaireFigure,
             'form' => $form->createView(),
-            'nbreCommentaire'=>$nbreCommentaire,
+            'nbreCommentaire' => $nbreCommentaire,
         ]);
     }
 
@@ -86,7 +86,7 @@ class FigureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             // On boucle sur les images
-            foreach ($figure->getImagefig() as $image){
+            foreach ($figure->getImagefig() as $image) {
                  $file = $image->getImageFile(); // IMPORTANT
                 if ($file) {
                     // On génère un nouveau nom de fichier
@@ -104,9 +104,8 @@ class FigureController extends AbstractController
                 }
             }
             //VIDEO
-            foreach ($figure->getVideofig()as $videoFigure){
-
-                $video =$videoFigure->getVideo();
+            foreach ($figure->getVideofig() as $videoFigure) {
+                $video = $videoFigure->getVideo();
                 $videoFigure->setVideo($video);
                 $entityManager->persist($videoFigure);
             }
@@ -132,18 +131,17 @@ class FigureController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->request->get('_token'))) {
-
             // SCRIPT POUR SUPPRIMER LES IMAGES DANS LE DOSSIER IMAGES
             $images = $figure->getImagefig();
-            if($images){
+            if ($images) {
                 // on parcourt les images avec une boucle
-                foreach ($images as $image){
-                    $imageName = $this->getParameter("upload_directory") . '/'.$image->getImage();
+                foreach ($images as $image) {
+                    $imageName = $this->getParameter("upload_directory") . '/' . $image->getImage();
 
                     // on vérifie si l'image existe
-                    if(file_exists($imageName)){
+                    if (file_exists($imageName)) {
                         unlink($imageName);
-                      }
+                    }
                 }
             }
 
@@ -157,5 +155,4 @@ class FigureController extends AbstractController
         }
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
-
 }

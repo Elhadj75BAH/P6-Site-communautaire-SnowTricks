@@ -24,13 +24,13 @@ class FigureRepository extends ServiceEntityRepository
       * @return  Figure[] Returns an array of Figure objects
       */
 
-    public function PaginationFigure($page)
+    public function paginationFigure($page)
     {
 
         return $this->createQueryBuilder('f')
             ->orderBy('f.id', 'DESC')
             ->setMaxResults(10)
-            ->setFirstResult(($page-1)*10)
+            ->setFirstResult(($page - 1) * 10)
             ->getQuery()
             ->getResult()
         ;

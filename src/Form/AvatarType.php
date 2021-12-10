@@ -15,18 +15,17 @@ class AvatarType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' =>Utilisateurs::class
+            'data_class' => Utilisateurs::class
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('picture',FileType::class,[
-                'label'=>'Télécharger votre avatar',
-                'attr'=>['class'=>'form-control'],
-                'mapped'=>false,
+            ->add('picture', FileType::class, [
+                'label' => 'Télécharger votre avatar',
+                'attr' => ['class' => 'form-control'],
+                'mapped' => false,
             ]);
     }
-
 }

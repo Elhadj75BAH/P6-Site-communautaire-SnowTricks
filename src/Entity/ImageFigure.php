@@ -78,6 +78,4 @@ class ImageFigure
     {
         $this->imageFile = $imageFile;
     }
-
-
 }

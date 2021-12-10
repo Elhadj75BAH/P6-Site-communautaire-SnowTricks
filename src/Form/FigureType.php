@@ -25,28 +25,26 @@ class FigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class)
-            ->add('description',TextareaType::class)
+            ->add('nom', TextType::class)
+            ->add('description', TextareaType::class)
             ->add('groupe');
 
-        $builder->add('imagefig',CollectionType::class,[
-            'label'=>'Image',
-            'entry_type'=> ImageFigureType::class,
-            'entry_options'=>['label'=>false,'attr'=>['required'=>true]],
+        $builder->add('imagefig', CollectionType::class, [
+            'label' => 'Image',
+            'entry_type' => ImageFigureType::class,
+            'entry_options' => ['label' => false,'attr' => ['required' => true]],
             'allow_add' => true,
-            'allow_delete'=>true,
+            'allow_delete' => true,
           //  'by_reference'=>false
         ]);
-        $builder->add('videofig',CollectionType::class,[
-            'label'=>'Video',
-            'entry_type'=>VideoFigureType::class,
-            'entry_options'=>['label'=>false, 'attr'=>['required'=>false]],
+        $builder->add('videofig', CollectionType::class, [
+            'label' => 'Video',
+            'entry_type' => VideoFigureType::class,
+            'entry_options' => ['label' => false, 'attr' => ['required' => false]],
             'allow_add' => true,
-            'allow_delete'=>true,
-            'by_reference'=>false
+            'allow_delete' => true,
+            'by_reference' => false
 
         ]);
-
     }
-
 }

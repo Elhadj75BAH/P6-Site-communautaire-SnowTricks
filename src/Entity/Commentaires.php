@@ -105,6 +105,4 @@ class Commentaires
 
         return $this;
     }
-
-
 }

@@ -210,9 +210,8 @@ class Figure
     {
         $nomfigure = $this->getNom();
         return($nomfigure);
-
     }
-    
+
     //SLUG
     public static function slugify($nom, string $divider = '-')
     {
@@ -271,6 +270,4 @@ class Figure
 
         return $this;
     }
-
-
 }

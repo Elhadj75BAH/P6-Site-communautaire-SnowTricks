@@ -22,5 +22,4 @@ class GroupeFigureType extends AbstractType
             ->add('nomGroupe')
         ;
     }
-
 }
