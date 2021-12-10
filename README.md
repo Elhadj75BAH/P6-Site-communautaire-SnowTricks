@@ -26,7 +26,10 @@ En utilisation le framework symfony.
  Mettre a jour les entites en base de donnée
 - bin/console doctrine:schema:update -f
 
+4  Lance les fixtures pour avoir des données de test en base
+- bin/console doctrine:fixtures:load
+- ou Télecharge directement le fichier sql de la base de donnée qui se trouve à la racine du projet 
+
 # Link CodeClimate
 
 - https://codeclimate.com/github/Elhadj75BAH/P6-Site-communautaire-SnowTricks
-- 
