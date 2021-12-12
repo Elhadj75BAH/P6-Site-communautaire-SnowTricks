@@ -27,34 +27,71 @@
             </div>
             {# fin carousel #}
             <hr>
+                {# detail summary if mobil #}
+            <details class="text-center mobil-version-detail ">
+                <summary class="mobil-version-detail">
+                    Voir image & video
+                </summary>
+               {# show  image and video  #}
+                <h2 class="text-center font-google text-light">Image associée à cette figure </h2>
+                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
+                    {% for image in figures.imagefig %}
+                        <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-fluid object-fit-image bg-danger-home-degrade">
+                    {% endfor %}
+                </div>
+                {# video #}
+                <hr>
 
-            <h2 class="text-center font-google text-light">Image associée à cette figure </h2>
-            <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
-                {% for image in figures.imagefig %}
-                    <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-fluid object-fit-image bg-danger-home-degrade">
-                {% endfor %}
-            </div>
-            {# video #}
-            <hr>
+                {% if figures.videofig|length==0 %}
+                    <h2 class="text-center font-google text-light">Aucune vidéo n'est disponible pour le moment !</h2>
+                {% else %}
+                    <h2 class="text-center font-google text-light">Video associée</h2>
 
-            {% if figures.videofig|length==0 %}
-            <h2 class="text-center font-google text-light">Aucune vidéo n'est disponible pour le moment !</h2>
-            {% else %}
-            <h2 class="text-center font-google text-light">Video associée</h2>
+                    <div class=" row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+                        {% for video in figures.videofig %}
+                            {% if figures.videofig is not null %}
+                                <iframe width="560" height="315"
+                                        src="{{ video.video }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                </iframe>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {# fin video #}
+            </details>
+                {# end detail if mobil #}
 
-                   <div class=" row row-cols-1 row-cols-md-4 g-4 justify-content-center">
-                       {% for video in figures.videofig %}
-                           {% if figures.videofig is not null %}
-                           <iframe width="560" height="315"
-                                   src="{{ video.video }}"
-                                   title="YouTube video player" frameborder="0"
-                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                           </iframe>
-                           {% endif %}
-                       {% endfor %}
-                   </div>
-            {% endif %}
-               {# fin video #}
+            <section class="mobil-version">
+                <h2 class="text-center font-google text-light">Image associée à cette figure </h2>
+                <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center" width="320" height="240">
+                    {% for image in figures.imagefig %}
+                        <img src="{{ absolute_url(asset('images/' ~  image.image)) }}" alt="image" class="img-fluid object-fit-image bg-danger-home-degrade">
+                    {% endfor %}
+                </div>
+                {# video #}
+                <hr>
+
+                {% if figures.videofig|length==0 %}
+                    <h2 class="text-center font-google text-light">Aucune vidéo n'est disponible pour le moment !</h2>
+                {% else %}
+                    <h2 class="text-center font-google text-light">Video associée</h2>
+
+                    <div class=" row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+                        {% for video in figures.videofig %}
+                            {% if figures.videofig is not null %}
+                                <iframe width="560" height="315"
+                                        src="{{ video.video }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                </iframe>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {# fin video #}
+            </section>
             <hr>
 
             {# description #}

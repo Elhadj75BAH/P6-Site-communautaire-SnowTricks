@@ -124,6 +124,21 @@ span.text_avatar{
         object-fit: cover;
     }
 }
+/**
+Button css display detail
+ */
+@media  screen  and (min-width: 736px){
+    .mobil-version-detail{
+        display: none;
+    }
+}
+
+/*image and video details*/
+@media only screen and (max-width: 1200px ){
+    .mobil-version{
+        display: none;!important;
+    }
+}
 
 
 /* BUTTON SCROLL FIGURE */
