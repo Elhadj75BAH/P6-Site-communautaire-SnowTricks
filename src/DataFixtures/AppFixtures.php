@@ -18,23 +18,22 @@ class AppFixtures extends Fixture
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
-
     }
     public function load(ObjectManager $manager): void
     {
-        for ($u =1; $u<5; $u++){
+        for ($u = 1; $u < 5; $u++) {
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom("John$u")
                 ->setEmail("$utilisateur$u@test.com")
                 ->setIsVerified(1)
                 ->setPicture('8cd9517240750b4efd9c150b4bd4d349.png');
-            $password = $this->encoder->encodePassword($utilisateur,'passJohndoe');
+            $password = $this->encoder->encodePassword($utilisateur, 'passJohndoe');
             $utilisateur->setPassword($password);
             $manager->persist($utilisateur);
         }
 
         //Groupe
-        for ($g = 1; $g<5; $g++){
+        for ($g = 1; $g < 5; $g++) {
             $groupeFigure = new GroupeFigure();
             $groupeFigure->setNomGroupe("groupe$g");
             $manager->persist($groupeFigure)

@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-
 class HomeController extends AbstractController
 {
     protected $slugger;
@@ -31,7 +30,7 @@ class HomeController extends AbstractController
         $donneRepo = $this->getDoctrine()->getRepository(ImageFigure::class)->findAll();
         $figure = $this->getDoctrine()->getRepository(Figure::class)->paginationFigure($page);
         // Nbre de figure
-        $nbrePage = ceil($this->getDoctrine()->getRepository(Figure::class)->nombreFigure()/10);
+        $nbrePage = ceil($this->getDoctrine()->getRepository(Figure::class)->nombreFigure() / 10);
 
         $userRepo = $this->getDoctrine()->getRepository(Utilisateurs::class)->findAll();
 
@@ -40,7 +39,7 @@ class HomeController extends AbstractController
             'page' => $page,
             'figure' => $figure,
             'utilisateur' => $userRepo,
-            'nbrePage'=>$nbrePage
+            'nbrePage' => $nbrePage
         ]);
     }
 
@@ -86,14 +85,13 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $figure->setUtilisateurs($this->getUser());
             $figure->setSlug(strtolower($this->slugger->slug($figure->getNom())));
 
             $entityManager = $this->getDoctrine()->getManager();
 
             // On boucle sur les images
-            foreach ($figure->getImagefig() as $image){
+            foreach ($figure->getImagefig() as $image) {
                  $file = $image->getImageFile();
 
                 // On génère un nouveau nom de fichier
@@ -110,9 +108,8 @@ class HomeController extends AbstractController
                 $entityManager->persist($image);
             }
             //VIDEO
-            foreach ($figure->getVideofig()as $videoFigure){
-
-                $video =$videoFigure->getVideo();
+            foreach ($figure->getVideofig() as $videoFigure) {
+                $video = $videoFigure->getVideo();
                 $videoFigure->setVideo($video);
                 $videoFigure->setFigure($figure);
                 $entityManager->persist($videoFigure);
@@ -128,5 +125,4 @@ class HomeController extends AbstractController
             'figures' => $figure,
         ]);
     }
-
 }

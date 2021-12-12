@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Repository\UtilisateursRepository;
 use App\Services\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,8 +15,8 @@ class SecurityController extends AbstractController
     public function __construct(Mailer $mailer, ParameterBagInterface $parameterBag, UtilisateursRepository $utilisateursRepository)
     {
         //$this-> = $emailVerifier;
-        $this->mailer=$mailer;
-        $this->param =$parameterBag;
+        $this->mailer = $mailer;
+        $this->param = $parameterBag;
         $this->utilisateursRepository = $utilisateursRepository;
     }
 

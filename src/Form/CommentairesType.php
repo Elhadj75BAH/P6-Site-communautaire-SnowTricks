@@ -20,12 +20,11 @@ class CommentairesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu',TextareaType::class,[
-                'label'=>'Vos Commentaires',
-                'attr'=>['placeholder'=>'ici votre commentaire !', 'rows'=>10, 'cols'=>5,
+            ->add('contenu', TextareaType::class, [
+                'label' => 'Vos Commentaires',
+                'attr' => ['placeholder' => 'ici votre commentaire !', 'rows' => 10, 'cols' => 5,
                 ]
             ])
         ;
     }
-
 }

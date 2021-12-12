@@ -19,15 +19,15 @@ class CommentairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaires::class);
     }
 
-    public function paginationCommentaire($page,$figure)
+    public function paginationCommentaire($page, $figure)
     {
 
         return $this->createQueryBuilder('c')
             ->orderBy('c.dateDuCommentaire', 'DESC')
             ->setMaxResults(10)
             ->where('c.figure=?1')
-            ->setParameter(1,$figure)
-            ->setFirstResult(($page-1)*10)
+            ->setParameter(1, $figure)
+            ->setFirstResult(($page - 1) * 10)
             ->getQuery()
             ->getResult()
             ;
@@ -37,12 +37,12 @@ class CommentairesRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\NoResultException
      */
-    public function nbreCommentaire ($figure)
+    public function nbreCommentaire($figure)
     {
         return $this->createQueryBuilder('c')
             ->select('count(c.id)')
             ->where('c.figure=?1')
-            ->setParameter('1',$figure)
+            ->setParameter('1', $figure)
             ->getQuery()
            ->getSingleScalarResult();
     }

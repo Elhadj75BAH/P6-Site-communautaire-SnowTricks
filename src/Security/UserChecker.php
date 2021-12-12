@@ -10,16 +10,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
-   public function checkPreAuth(UserInterface $user):void
-   {
-       if(!$user instanceof Utilisateurs){
-           return;
-       }
+    public function checkPreAuth(UserInterface $user): void
+    {
+        if (!$user instanceof Utilisateurs) {
+            return;
+        }
 
-       if(!$user->isVerified()){
-           throw new CustomUserMessageAuthenticationException('Vous devez cliquer sur le lien reçu par email lors de votre inscription pour activer votre compte pour pouvoir se connecter');
-       }
-   }
+        if (!$user->isVerified()) {
+            throw new CustomUserMessageAuthenticationException('Vous devez cliquer sur le lien reçu par email lors de votre inscription pour activer votre compte pour pouvoir se connecter');
+        }
+    }
 
     public function checkPostAuth(UserInterface $user)
     {

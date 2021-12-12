@@ -83,7 +83,7 @@ class GroupeFigureController extends AbstractController
      */
     public function delete(Request $request, GroupeFigure $groupeFigure): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$groupeFigure->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $groupeFigure->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($groupeFigure);
             $entityManager->flush();

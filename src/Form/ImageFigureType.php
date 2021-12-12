@@ -21,20 +21,22 @@ class ImageFigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile',FileType::class,
+            ->add(
+                'imageFile',
+                FileType::class,
                 [
-                'label'=>false,
-                'required'=>false,
-               // 'attr'=>['class'=>'form-control'],
+                'label' => false,
+                'required' => false,
+                // 'attr'=>['class'=>'form-control'],
 
-              /*  'constraints'=>[
+                /*  'constraints'=>[
                     new File([
                         'maxSize'=>'8M',
                     ])
                 ],*/
 
-            ])
+                ]
+            )
             ;
     }
-
 }
