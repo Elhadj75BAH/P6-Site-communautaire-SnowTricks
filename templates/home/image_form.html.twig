@@ -40,6 +40,11 @@
         <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
         <a href="{{ path('home') }}" class="btn btn-danger">Annuler </a>
         {{ form_end(form) }}
+        <hr>
+        {% if figures.nom|length ==0 %}
+        {% else %}
+            {{ include('figure/delete/_delete_form.html.twig') }}
+        {% endif %}
     </div>
 
 
