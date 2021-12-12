@@ -12,8 +12,10 @@
         <div class="container bg-comment-degrade ">
             <h1 class="text-center text-light font-google ">{{ figures.nom }}</h1>
             <a href="{{ path('home') }}" class="btn btn-dark"><i class="fa fa-arrow"></i> Retour à la liste</a>
-            <a href="{{ path('figure_edit', {'slug': figures.slug}) }} " title="Modifier la figure" class="btn btn-danger margin"><i
+            {% if app.user %}
+                <a href="{{ path('figure_edit', {'slug': figures.slug}) }} " title="Modifier la figure" class="btn btn-danger margin"><i
                         class="fas fa-edit"></i></a>
+            {% endif %}
             <hr>
             {# carrousel #}
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
