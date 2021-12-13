@@ -37,8 +37,15 @@
             </div>
         </div>
         {{ form_errors(form) }}
-        <button class="btn btn-outline-danger">{{ button_label|default('Enregistrer') }}</button>
+        <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('home') }}" class="btn btn-danger">Annuler </a>
         {{ form_end(form) }}
+        <hr>
+        {% if figures.nom|length ==0 %}
+            <small class="text-danger"><i class="fa fa-info fa-2x"></i>  Veuillez remplir les champs pour envoyer. </small>
+        {% else %}
+
+        {% endif %}
     </div>
 
 

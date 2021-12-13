@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-navbar navbar-light sticky-top ">
     <div class="container-fluid">
-        <a class="navbar-brand text-light " href="{{ path('home') }}"><i class="fa fa-snowboarding fa-2x text-danger"></i> <span class="font-google">SnowBoard</span>
+        <a class="navbar-brand text-light " href="{{ path('home') }}"><i class="fa fa-snowboarding fa-2x text-danger"></i> <span class="font-google">SnowTricks</span>
            {#  <img src="{{ asset('logo/logo2.png') }}" alt="logo " width="100" height="70">#}
         </a>
         <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,14 +22,14 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link  text-light" href="{{ path('app_logout') }}" tabindex="-1" aria-disabled="false"><i class="fas  fa-sign-out-alt fa-lg me-1 fa-fw text-danger"></i>Se Deconnecter</a>
+                        <a class="nav-link  text-light" href="{{ path('app_logout') }}" tabindex="-1" aria-disabled="false"><i class="fas  fa-sign-out-alt fa-lg me-1 fa-fw text-danger"></i>Se Déconnecter</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ path('app_register') }}"> <i class="fas fa-user fa-lg me-1 fa-fw"></i>S'Incrire</a>
+                        <a class="nav-link text-light" href="{{ path('app_register') }}"> <i class="fas fa-user fa-lg me-1 fa-fw"></i>S'Inscrire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  text-light" href="{{ path('app_login') }}" tabindex="-1" aria-disabled="false" ><i class="fas  fa-sign-in-alt fa-lg me-1 fa-fw"></i> Se Connecter</a>
+                        <a class="nav-link  text-light" href="{{ path('app_login') }}" tabindex="-1" aria-disabled="false" ><i class="fas  fa-sign-in-alt fa-lg me-1 fa-fw"></i> S'Authentifier</a>
                     </li>
                 {% endif %}
                 {% if app.user %}

@@ -75,7 +75,7 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("/formulaire",name="formulaire_")
+     * @Route("/formulaire",name="formulaire_" ,requirements={"page":"\d+"})
      */
     public function fomulaires(Request $request): Response
     {

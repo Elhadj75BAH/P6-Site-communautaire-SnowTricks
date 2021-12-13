@@ -28,7 +28,7 @@ En utilisation le framework symfony.
 
 4  Lance les fixtures pour avoir des données de test en base
 - bin/console doctrine:fixtures:load
-- ou Télecharge directement le fichier sql de la base de donnée qui se trouve à la racine du projet 
+- ou Télécharge directement le fichier "dbProject.sql" de la base de donnée qui se trouve à la racine du projet 
 
 # Link CodeClimate
 
