@@ -18,7 +18,7 @@ class GroupeFigure
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Figure::class, mappedBy="groupe", cascade={"persist", "remove"})
+     * @ORM\OneToMany (targetEntity=Figure::class, mappedBy="groupe", cascade={"persist", "remove"})
      */
     private $figure;
 
