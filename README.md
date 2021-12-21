@@ -20,10 +20,10 @@ En utilisation le framework symfony.
 
 2 Installez les dépendances du projet avec composer install
 
-3 nmp install pour installer les librairies de javascript pour les collections du formulaire 
+3 npm install pour installer les librairies de javascript pour les collections du formulaire 
 
 4 Créer la base de donnée si cette base n'hesiste pas encore 
-- bin/console doctrine:database:create -f
+- bin/console doctrine:database:create
 
  Mettre a jour les entites en base de donnée
 - bin/console doctrine:schema:update -f
