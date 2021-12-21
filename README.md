@@ -22,13 +22,16 @@ En utilisation le framework symfony.
 
 3 npm install pour installer les librairies de javascript pour les collections du formulaire 
 
-4 Créer la base de donnée si cette base n'hesiste pas encore 
-- bin/console doctrine:database:create
+4 N'oubliez pas de remplir le fichier .env de votre base de donnée comme ci dessous par exemple:
+DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+
+5 Créer la base de donnée si cette base n'hesiste pas encore 
+- bin/console doctrine:database:create -f
 
  Mettre a jour les entites en base de donnée
 - bin/console doctrine:schema:update -f
 
-5  Lance les fixtures pour avoir des données de test en base
+6  Lance les fixtures pour avoir des données de test en base
 - bin/console doctrine:fixtures:load
 - ou Télécharge directement le fichier "dbProject.sql" de la base de donnée qui se trouve à la racine du projet 
 
