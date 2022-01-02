@@ -27,6 +27,7 @@ DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5
 
 5 Toujours dans le .env Veuillez configurer Le MAILER_DSN comme ci-dessous par exemple:
 MAILER_DSN=gmail://example@gmail.com:password@default
+
 MAILER_FROM_ADRESS=example@gmail.com
 
 6 Créer la base de donnée si cette base n'hesiste pas encore 
