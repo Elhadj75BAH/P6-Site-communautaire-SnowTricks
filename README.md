@@ -26,7 +26,7 @@ En utilisation le framework symfony.
 DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 
 5 Créer la base de donnée si cette base n'hesiste pas encore 
-- bin/console doctrine:database:create -f
+- bin/console doctrine:database:create
 
  Mettre a jour les entites en base de donnée
 - bin/console doctrine:schema:update -f
