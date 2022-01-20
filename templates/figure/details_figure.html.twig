@@ -11,11 +11,15 @@
         {% endfor %}
         <div class="container bg-comment-degrade ">
             <h1 class="text-center text-light font-google ">{{ figures.nom }}</h1>
-            <a href="{{ path('home') }}" class="btn btn-dark"><i class="fa fa-arrow"></i> Retour à la liste</a>
+            <span class="d-left">
+            <a href="{{ path('home') }}" class="btn btn-dark "><i class="fa fa-arrow"></i> Retour à la liste</a>
             {% if app.user %}
-                <a href="{{ path('figure_edit', {'slug': figures.slug}) }} " title="Modifier la figure" class="btn btn-danger margin"><i
+                <a href="{{ path('figure_edit', {'slug': figures.slug}) }} " title="Modifier la figure" class="btn btn-primary margin "><i
                         class="fas fa-edit"></i></a>
+                {{ include('figure/delete/_delete_form.html.twig') }}
+
             {% endif %}
+                 </span>
             <hr>
             {# carrousel #}
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
