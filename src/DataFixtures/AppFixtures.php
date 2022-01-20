@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
-        for ($u = 1; $u < 5; $u++) {
+        for ($u = 1; $u < 2; $u++) {
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom("John$u")
                 ->setEmail("$utilisateur$u@test.com")
@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
 
         //image
             $imageFigure = new ImageFigure();
-            $imageFigure->setImage("5e33f749e21bd5312f0ffb9dde61466b.png")
+            $imageFigure->setImage("d635e9f0f0ce1959848569c4910865bf.png")
                 ->setFigureimage($figure);
             $manager->persist($imageFigure)
             ;
