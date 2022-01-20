@@ -44,7 +44,7 @@
         {% if figures.nom|length ==0 %}
             <small class="text-danger"><i class="fa fa-info fa-2x"></i>  Veuillez remplir les champs pour envoyer. </small>
         {% else %}
-
+            {{ include('figure/delete/_delete_form.html.twig') }}
         {% endif %}
     </div>
 
